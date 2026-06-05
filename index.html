@@ -148,63 +148,58 @@
         Hecho con ❤️ para Dylan Mathias Quispe Baca
     </div>
 
+   <!-- SCRIPT DE CONFETI (No tocar) -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-   <script>
-    let musicaIniciada = false;
+    <!-- SCRIPT DE MÚSICA, CONTADOR Y LOGICA -->
+    <script>
+        let musicaIniciada = false;
 
-    function iniciarExperiencia() {
-        // Inician música solo la primera vez que tocan
-        if (!musicaIniciada) {
-            const audio = document.getElementById("musicaGranja");
-            if (audio) {
-                audio.play().catch(error => console.log("Esperando interacción..."));
-                musicaIniciada = true;
+        function iniciarExperiencia() {
+            // Inicia la música solo la primera vez que tocan la pantalla
+            if (!musicaIniciada) {
+                const audio = document.getElementById("musicaGranja");
+                if (audio) {
+                    audio.play().catch(error => console.log("Esperando interacción..."));
+                    musicaIniciada = true;
+                }
             }
         }
-    }
 
-    // 🔥 EL TRUCO REFACTORIZADO PARA EL CELULAR:
-    // Escucha cuando el usuario toque cualquier parte de la pantalla o haga clic
-    document.addEventListener('click', iniciarExperiencia);
-    document.addEventListener('touchstart', iniciarExperiencia); // Especial para pantallas táctiles
+        // Detectores para activar la música en cualquier celular al tocar la pantalla
+        document.addEventListener('click', iniciarExperiencia);
+        document.addEventListener('touchstart', iniciarExperiencia);
 
-    // Confeti automático
-    window.onload = function() {
-        confetti({
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-    }
-</script>
-
-        // Confeti automático
-        window.onload = function() {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#4CAF50', '#FFEB3B', '#F44336', '#2196F3']
-            });
-        };
-
-        // Cuenta regresiva
+        // Cuenta regresiva para el 20 de junio de 2026 a las 3:00 PM
         const targetDate = new Date("June 20, 2026 15:00:00").getTime();
+
         function updateTimer() {
             const now = new Date().getTime();
             const diff = targetDate - now;
+
             if (diff <= 0) {
                 document.getElementById("timer").innerHTML = "¡Es hoy! 🥳";
                 return;
             }
+
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
             document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
+
         setInterval(updateTimer, 1000);
-        updateTimer();
+        updateTimer(); 
+
+        // Confeti automático al cargar la página
+        window.onload = function() {
+            confetti({
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
     </script>
 </body>
 </html>
