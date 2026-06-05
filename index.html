@@ -150,17 +150,33 @@
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <script>
-        let musicaIniciada = false;
+   <script>
+    let musicaIniciada = false;
 
-        function iniciarExperiencia() {
-            // Iniciar música solo la primera vez que tocan
-            if (!musicaIniciada) {
-                const audio = document.getElementById("musicaGranja");
+    function iniciarExperiencia() {
+        // Inician música solo la primera vez que tocan
+        if (!musicaIniciada) {
+            const audio = document.getElementById("musicaGranja");
+            if (audio) {
                 audio.play().catch(error => console.log("Esperando interacción..."));
                 musicaIniciada = true;
             }
         }
+    }
+
+    // 🔥 EL TRUCO REFACTORIZADO PARA EL CELULAR:
+    // Escucha cuando el usuario toque cualquier parte de la pantalla o haga clic
+    document.addEventListener('click', iniciarExperiencia);
+    document.addEventListener('touchstart', iniciarExperiencia); // Especial para pantallas táctiles
+
+    // Confeti automático
+    window.onload = function() {
+        confetti({
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    }
+</script>
 
         // Confeti automático
         window.onload = function() {
